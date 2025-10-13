@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalles de la Tarea</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="eliminarTarea()" color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Solo muestra el formulario si la tarea se ha cargado -->
+  <form *ngIf="tarea" [formGroup]="tareaForm" (ngSubmit)="actualizarTarea()">
+    <ion-list>
+      <ion-item>
+        <ion-input label="Título" labelPlacement="floating" formControlName="titulo" errorText="El título es requerido"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea label="Descripción" labelPlacement="floating" formControlName="descripcion" errorText="La descripción es requerida"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha de Vencimiento</ion-label>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="datetime" formControlName="fechaVencimiento" presentation="date"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <!-- Mensaje de error para la fecha -->
+      <div *ngIf="tareaForm.get('fechaVencimiento')?.touched && tareaForm.get('fechaVencimiento')?.errors" class="ion-padding-start ion-text-danger">
+        <div *ngIf="tareaForm.get('fechaVencimiento')?.hasError('required')">La fecha es requerida.</div>
+        <div *ngIf="tareaForm.get('fechaVencimiento')?.hasError('fechaPasada')">La fecha debe ser futura.</div>
+      </div>
+
+    </ion-list>
+
+    <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="tareaForm.invalid">
+      Actualizar Tarea
+    </ion-button>
+  </form>
+</ion-content>

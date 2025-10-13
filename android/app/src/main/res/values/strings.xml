@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">admin-tasks</string>
+    <string name="title_activity_main">admin-tasks</string>
+    <string name="package_name">com.devax.admintasks</string>
+    <string name="custom_url_scheme">com.devax.admintasks</string>
+</resources>

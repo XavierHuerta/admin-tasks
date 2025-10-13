@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Mis Tareas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Mis Tareas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <!-- Mensaje para cuando no hay tareas -->
+    <ion-item *ngIf="tareas.length === 0">
+      <ion-label class="ion-text-center">
+        No hay tareas pendientes. ¡Añade una nueva!
+      </ion-label>
+    </ion-item>
+
+    <!-- Itera sobre la lista de tareas -->
+    <ion-item *ngFor="let tarea of tareas" [routerLink]="['/tarea-detalles', tarea.id]" button detail="true">
+      <ion-label>
+        <h2>{{ tarea.titulo }}</h2>
+        <p>Vence: {{ tarea.fechaVencimiento | date:'short' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Botón flotante para añadir nueva tarea -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/tarea">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
